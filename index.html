@@ -39,6 +39,7 @@
     font-family:'Inter', sans-serif;
     line-height:1.65;
     -webkit-font-smoothing:antialiased;
+    padding-top:92px;
   }
 
   h1,h2,h3{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.02em; }
@@ -47,24 +48,59 @@
   ::selection{ background:var(--accent); color:#08101d; }
 
   nav{
-    position:sticky; top:0; z-index:100;
-    background:rgba(6, 12, 23, 0.88);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid rgba(126, 150, 193, 0.10);
+    position:fixed;
+    top:18px;
+    left:50%;
+    z-index:1000;
+    width:calc(100% - 40px);
+    max-width:var(--max-w);
+    transform:translateX(-50%);
+    border:1px solid var(--border-strong);
+    border-radius:999px;
+    background:rgba(8, 16, 29, 0.78);
+    box-shadow:0 18px 48px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255,255,255,0.04);
+    backdrop-filter:blur(18px) saturate(135%);
+    -webkit-backdrop-filter:blur(18px) saturate(135%);
   }
   .nav-inner{
-    max-width:var(--max-w); margin:0 auto; padding:16px 32px;
-    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 12px 10px 22px;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:24px;
   }
   .nav-logo{
-    font-family:'Space Grotesk', sans-serif; font-size:15px; font-weight:700; color:var(--text);
+    justify-self:start;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:15px;
+    font-weight:700;
+    color:var(--text);
+    letter-spacing:-0.01em;
   }
-  .nav-links{ display:flex; gap:28px; font-size:13px; }
+  .nav-links{ display:flex; align-items:center; gap:30px; font-size:13px; }
   .nav-links a{ color:var(--text-secondary); font-weight:500; transition:color 0.2s ease; }
   .nav-links a:hover{ color:var(--accent); }
-  @media (max-width:700px){ .nav-links{ display:none; } }
+  .nav-cta{
+    justify-self:end;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px 18px;
+    border:1px solid rgba(140, 180, 255, 0.36);
+    border-radius:999px;
+    background:linear-gradient(135deg, rgba(140,180,255,0.22), rgba(94,133,219,0.14));
+    color:var(--text);
+    font-size:12.5px;
+    font-weight:700;
+    transition:transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  .nav-cta:hover{
+    transform:translateY(-1px);
+    border-color:var(--accent);
+    background:linear-gradient(135deg, rgba(140,180,255,0.30), rgba(94,133,219,0.20));
+  }
 
-  section{ max-width:var(--max-w); margin:0 auto; padding:42px 32px; }
+  section{ max-width:var(--max-w); margin:0 auto; padding:42px 32px; scroll-margin-top:112px; }
 
   .reveal{ opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease; }
   .reveal.in{ opacity:1; transform:translateY(0); }
@@ -496,29 +532,94 @@
   .cert-item:hover{ border-color:var(--accent); }
   .cert-date{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-tertiary); }
 
-  footer{ max-width:var(--max-w); margin:0 auto; padding:46px 32px 64px; text-align:center; }
-  footer h2{ font-size:32px; margin-bottom:10px; }
-  footer p{ color:var(--text-secondary); font-size:15px; margin-bottom:30px; }
-  .contact-grid{ display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:42px; }
-  .contact-chip{
-    display:flex; align-items:center; gap:8px; padding:11px 18px; border-radius:10px;
-    border:1px solid var(--border); background:rgba(14, 21, 35, 0.78); font-size:13.5px; font-weight:500;
-    transition:all 0.2s ease;
+  footer{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding:54px 32px 36px;
+    scroll-margin-top:112px;
   }
-  .contact-chip:hover{ border-color:var(--accent); color:var(--accent); transform:translateY(-2px); background:var(--accent-soft); }
-  .contact-chip svg{ width:15px; height:15px; stroke:currentColor; }
-  .foot-bottom{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-tertiary); }
+  .contact-panel{
+    position:relative;
+    display:grid;
+    grid-template-columns:minmax(0, 1.25fr) minmax(260px, 0.75fr);
+    align-items:center;
+    gap:48px;
+    padding:54px;
+    overflow:hidden;
+    border:1px solid var(--border-strong);
+    border-radius:28px;
+    background:
+      radial-gradient(circle at 8% 8%, rgba(140,180,255,0.20), transparent 34%),
+      linear-gradient(135deg, rgba(18,30,52,0.97), rgba(10,18,32,0.96));
+    box-shadow:0 30px 80px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .contact-panel::after{
+    content:'';
+    position:absolute;
+    width:320px;
+    height:320px;
+    right:-120px;
+    bottom:-180px;
+    border-radius:50%;
+    background:rgba(116,161,255,0.12);
+    filter:blur(8px);
+    pointer-events:none;
+  }
+  .contact-copy,
+  .contact-actions{ position:relative; z-index:1; }
+  .contact-eyebrow{
+    display:inline-block;
+    margin-bottom:14px;
+    color:var(--accent);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+  }
+  footer h2{ max-width:650px; font-size:46px; line-height:1.08; margin-bottom:16px; }
+  footer p{ max-width:690px; color:var(--text-secondary); font-size:15.5px; line-height:1.8; }
+  .contact-grid{ display:flex; flex-direction:column; gap:12px; }
+  .contact-chip{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    width:100%;
+    padding:14px 16px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:rgba(7, 14, 26, 0.55);
+    font-size:13.5px;
+    font-weight:600;
+    transition:transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  .contact-chip:hover{ border-color:var(--accent); transform:translateY(-2px); background:rgba(140,180,255,0.10); }
+  .contact-chip.contact-primary{ background:var(--accent); color:#07101d; border-color:var(--accent); }
+  .contact-chip.contact-primary:hover{ background:#a3c4ff; }
+  .contact-label{ display:flex; align-items:center; gap:10px; }
+  .contact-chip svg{ width:16px; height:16px; stroke:currentColor; }
+  .contact-arrow{ font-size:17px; line-height:1; }
+  .contact-note{ margin-top:16px; color:var(--text-tertiary); font-family:'JetBrains Mono', monospace; font-size:10.5px; line-height:1.6; }
+  .foot-bottom{ margin-top:24px; text-align:center; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-tertiary); }
 
   @media (max-width:900px){
     .hero-shell{ padding:58px 28px 48px; }
     .hero h1{ font-size:60px; }
     .hero .role{ font-size:21px; }
     .hero .desc{ font-size:16px; }
+    .contact-panel{ grid-template-columns:1fr; gap:30px; padding:42px; }
+    .contact-grid{ display:grid; grid-template-columns:repeat(3, 1fr); }
   }
 
   @media (max-width:700px){
+    body{ padding-top:76px; }
     section{ padding:34px 20px; }
-    .nav-inner{ padding:15px 20px; }
+    nav{ top:10px; width:calc(100% - 24px); }
+    .nav-inner{ grid-template-columns:1fr auto; padding:8px 9px 8px 16px; gap:12px; }
+    .nav-logo{ font-size:14px; }
+    .nav-links{ display:none; }
+    .nav-cta{ padding:8px 13px; font-size:12px; }
     .hero{ padding-top:44px; }
     .hero-shell{ padding:38px 6px 30px; }
     .hero h1{ font-size:44px; }
@@ -533,7 +634,10 @@
     .proj-card.featured{ grid-column:auto !important; }
     .t-item{ grid-template-columns:1fr; gap:10px; }
     .t-num{ font-size:22px; }
-    footer{ padding:48px 20px 68px; }
+    footer{ padding:48px 20px 32px; }
+    .contact-panel{ padding:30px 24px; border-radius:22px; }
+    footer h2{ font-size:34px; }
+    .contact-grid{ grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -541,14 +645,14 @@
 
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">Pratik Surana</div>
+    <a class="nav-logo" href="#" aria-label="Back to top">Pratik Surana</a>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
     </div>
+    <a class="nav-cta" href="#contact">Let's talk</a>
   </div>
 </nav>
 
@@ -761,57 +865,41 @@
 <section id="skills">
   <div class="sec-head reveal"><span class="tag">04</span><h2>Skills</h2></div>
   <div class="reveal">
-
     <div class="skill-group">
       <span class="skill-label">Programming Languages</span>
       <div class="chip-row">
-        <span class="chip">Java</span><span class="chip">Python</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span>
-        <span class="chip">C#</span><span class="chip">C</span><span class="chip">C++</span><span class="chip">Dart</span>
-        <span class="chip">Elm</span><span class="chip">Haskell</span><span class="chip">SQL</span><span class="chip">HTML5</span><span class="chip">CSS3</span>
+        <span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span>
+        <span class="chip">Python</span><span class="chip">PHP</span><span class="chip">Elm</span>
+        <span class="chip">REST APIs</span><span class="chip">Flutter (Dart)</span><span class="chip">C</span>
+        <span class="chip">C++</span><span class="chip">HTML5</span><span class="chip">CSS3</span>
+        <span class="chip">Haskell</span><span class="chip">MySQL</span><span class="chip">React.js</span>
       </div>
     </div>
 
     <div class="skill-group">
-      <span class="skill-label">Frameworks &amp; Libraries</span>
+      <span class="skill-label">Tools</span>
       <div class="chip-row">
-        <span class="chip">React.js</span><span class="chip">Flutter</span><span class="chip">Provider</span><span class="chip">FastAPI</span>
-        <span class="chip">.NET Core</span><span class="chip">Tailwind CSS</span><span class="chip">NumPy</span><span class="chip">librosa</span><span class="chip">REST APIs</span>
+        <span class="chip">Linux</span><span class="chip">Git</span><span class="chip">JSON</span>
+        <span class="chip">GitHub</span><span class="chip">VS Code</span><span class="chip">Figma</span>
+        <span class="chip">GraphicSVG</span><span class="chip">Elm Reactor</span><span class="chip">AST Tools</span>
+        <span class="chip">CSC State Charts</span><span class="chip">Android Studio</span>
       </div>
     </div>
 
     <div class="skill-group">
-      <span class="skill-label">Testing &amp; Quality Engineering</span>
+      <span class="skill-label">Cloud &amp; Platforms</span>
       <div class="chip-row">
-        <span class="chip">Selenium</span><span class="chip">Cypress</span><span class="chip">Cucumber</span><span class="chip">API Testing</span>
-        <span class="chip">Unit Testing</span><span class="chip">Integration Testing</span><span class="chip">Regression Testing</span>
+        <span class="chip">IBM Blockchain PaaS</span><span class="chip">Managed Cloud Services</span><span class="chip">Secure Deployment</span>
       </div>
     </div>
 
     <div class="skill-group">
-      <span class="skill-label">Cloud &amp; DevOps</span>
+      <span class="skill-label">Soft Skills</span>
       <div class="chip-row">
-        <span class="chip">AWS</span><span class="chip">Microsoft Azure</span><span class="chip">Docker</span><span class="chip">Kubernetes</span>
-        <span class="chip">Terraform</span><span class="chip">CI/CD</span><span class="chip">GitHub Actions</span><span class="chip">Jenkins</span><span class="chip">GitLab</span>
+        <span class="chip">Time Management</span><span class="chip">Team Collaboration</span>
+        <span class="chip">Analytical Decision Making</span><span class="chip">Communication</span><span class="chip">Problem Solving</span>
       </div>
     </div>
-
-    <div class="skill-group">
-      <span class="skill-label">Databases, Analytics &amp; Enterprise</span>
-      <div class="chip-row">
-        <span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">Supabase</span><span class="chip">Power BI</span>
-        <span class="chip">Microsoft Excel</span><span class="chip">SAP Business Data Cloud</span><span class="chip">SAP Enterprise Architecture</span>
-      </div>
-    </div>
-
-    <div class="skill-group">
-      <span class="skill-label">Development &amp; Delivery Tools</span>
-      <div class="chip-row">
-        <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Linux</span><span class="chip">Bash</span><span class="chip">VS Code</span>
-        <span class="chip">Android Studio</span><span class="chip">Jira</span><span class="chip">Confluence</span><span class="chip">SharePoint</span>
-        <span class="chip">Miro</span><span class="chip">Figma</span><span class="chip">Agile/Scrum</span><span class="chip">SDLC</span><span class="chip">Requirements Analysis</span>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -846,33 +934,49 @@
 
   <div class="sec-head reveal" style="margin-top:32px;"><span class="tag">08</span><h2>Certifications</h2></div>
   <div class="cert-list reveal">
-    <div class="cert-item"><span>Introducing SAP Business Data Cloud — SAP Learning</span><span class="cert-date">July 2026</span></div>
-    <div class="cert-item"><span>Discovering SAP Enterprise Architecture — SAP Learning</span><span class="cert-date">June 2026</span></div>
-    <div class="cert-item"><span>IBM Blockchain Platform as a Service — Alison</span><span class="cert-date">Jan 2026</span></div>
-    <div class="cert-item"><span>Introduction to Image Generation — Google Cloud Skills Boost</span><span class="cert-date">Jan 2026</span></div>
+    <div class="cert-item"><span>Introducing SAP Business Data Cloud - SAP Learning</span><span class="cert-date">July 2026</span></div>
+    <div class="cert-item"><span>Discovering SAP Enterprise Architecture - SAP Learning</span><span class="cert-date">June 2026</span></div>
+    <div class="cert-item"><span>IBM Blockchain Platform as a Service - Alison</span><span class="cert-date">Jan 2026</span></div>
+    <div class="cert-item"><span>Introduction to Image Generation - Google Cloud Skills Boost</span><span class="cert-date">Jan 2026</span></div>
   </div>
 </section>
 
 <footer id="contact">
-  <h2 class="reveal">Let’s connect.</h2>
-  <p class="reveal">Open to software development roles, internships and collaborations.</p>
-  <div class="contact-grid reveal">
-    <a class="contact-chip" href="mailto:pratikmahaveer@gmail.com">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
-      Email
-    </a>
-    <a class="contact-chip" href="https://github.com/PratikSurana123" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-      GitHub
-    </a>
-    <a class="contact-chip" href="https://linkedin.com/in/pratikmahaveer" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      LinkedIn
-    </a>
+  <div class="contact-panel reveal">
+    <div class="contact-copy">
+      <span class="contact-eyebrow">Get in touch</span>
+      <h2>Let’s build something useful.</h2>
+      <p>I’m open to software development, technology consulting and product-focused opportunities where I can help turn complex problems into practical, reliable solutions.</p>
+    </div>
 
-
+    <div class="contact-actions">
+      <div class="contact-grid">
+        <a class="contact-chip contact-primary" href="mailto:pratikmahaveer@gmail.com">
+          <span class="contact-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+            Email me
+          </span>
+          <span class="contact-arrow">↗</span>
+        </a>
+        <a class="contact-chip" href="https://linkedin.com/in/pratikmahaveer" target="_blank" rel="noopener">
+          <span class="contact-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </span>
+          <span class="contact-arrow">↗</span>
+        </a>
+        <a class="contact-chip" href="https://github.com/PratikSurana123" target="_blank" rel="noopener">
+          <span class="contact-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </span>
+          <span class="contact-arrow">↗</span>
+        </a>
+      </div>
+      <div class="contact-note">Hamilton, ON, Canada · Open to internships and collaborations</div>
+    </div>
   </div>
-  <div class="foot-bottom">designed &amp; built — pratik surana © 2026</div>
+  <div class="foot-bottom">designed &amp; built - pratik surana © 2026</div>
 </footer>
 
 <script>
